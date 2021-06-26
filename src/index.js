@@ -36,3 +36,4 @@ registerBlockType( 'create-block/block', {
 	 */
 	save,
 } );
+

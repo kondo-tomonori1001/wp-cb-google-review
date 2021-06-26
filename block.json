@@ -11,5 +11,16 @@
 	"textdomain": "block",
 	"editorScript": "file:./build/index.js",
 	"editorStyle": "file:./build/index.css",
-	"style": "file:./build/style-index.css"
+	"style": "file:./build/style-index.css",
+	"attributes":{
+		"apiKey":{
+			"type":"string"
+		},
+		"locationId": {
+			"type": "string"
+		},
+		"res":{
+			"type":"array"
+		}
+	}
 }

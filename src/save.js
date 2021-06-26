@@ -22,10 +22,19 @@ import { useBlockProps } from '@wordpress/block-editor';
  *
  * @return {WPElement} Element to render.
  */
-export default function save() {
+export default function save({ attributes }) {
+	const { apiKey, res } = attributes;
 	return (
-		<p { ...useBlockProps.save() }>
-			{ __( 'Block – hello from the saved content!', 'block' ) }
-		</p>
+		<>
+			<p { ...useBlockProps.save() }>
+				{ __( 'Block – hello from the saved content!', 'block' ) }
+			</p>
+			{
+				res.map((value, key) => {
+					return <p key={key}>{value.name}</p>
+				})
+			}
+		</>
 	);
+	
 }

@@ -24,3 +24,24 @@ function create_block_block_block_init() {
 	register_block_type_from_metadata( __DIR__ );
 }
 add_action( 'init', 'create_block_block_block_init' );
+
+// メニュー追加
+function add_menu(){
+  add_menu_page( 'GooglePlacesAPI','GooglePlacesAPI','manage_options','get_api','add_js','dashicons-align-left');
+}
+add_action( 'admin_menu', 'add_menu' );
+
+function get_api() {
+	$url = "https://jsonplaceholder.typicode.com/posts";
+	$json = file_get_contents($url);
+	// echo $json;
+}
+
+// JSフック
+function add_js(){
+	wp_enqueue_script(
+		'custom.js',
+		plugins_url('/block/custom.js')
+	);
+}
+add_action( 'wp_enqueue_scripts', 'add_js' );
