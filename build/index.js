@@ -2294,15 +2294,16 @@ function Edit({
     placeId,
     res
   } = attributes;
-  const [apiTrue, setApiTrue] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])();
+  const [apiTrue, setApiTrue] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
+  console.log(res === undefined);
 
   const clickEvent = () => {
     const setApiKey = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=review&key=${apiKey}`;
     console.log(setApiKey);
-    axios__WEBPACK_IMPORTED_MODULE_5___default.a.get(setApiKey).then(response => {
-      setApiTrue(true);
+    axios__WEBPACK_IMPORTED_MODULE_5___default.a.get(apiKey).then(response => {
       attributes.res = response.data;
       console.log(res);
+      setApiTrue(true);
     }).catch(error => {
       setApiTrue(false);
       console.log('ERROR!! occurred in Backend.');
@@ -2325,10 +2326,12 @@ function Edit({
     })
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, placeId), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
     onClick: clickEvent
-  }, "\u8868\u793A\u3059\u308B"), apiTrue === false && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "\u53E3\u30B3\u30DF\u60C5\u5831\u306E\u53D6\u5F97\u306B\u5931\u6557\u3057\u307E\u3057\u305F\u3002\u6B63\u3057\u304F\u60C5\u5831\u304C\u5165\u529B\u3055\u308C\u3066\u3044\u308B\u304B\u3054\u78BA\u8A8D\u304F\u3060\u3055\u3044\u3002"))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useBlockProps"])(), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])("Block – hello from the editor!", "block")), (apiTrue === undefined || apiTrue === true) && res.map((value, key) => {
+  }, "\u8868\u793A\u3059\u308B"), apiTrue === false && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "\u53E3\u30B3\u30DF\u60C5\u5831\u306E\u53D6\u5F97\u306B\u5931\u6557\u3057\u307E\u3057\u305F\u3002\u6B63\u3057\u304F\u60C5\u5831\u304C\u5165\u529B\u3055\u308C\u3066\u3044\u308B\u304B\u3054\u78BA\u8A8D\u304F\u3060\u3055\u3044\u3002"))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useBlockProps"])(), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])("Block – hello from the editor!", "block")), res !== undefined && apiTrue === true && res.map((value, key) => {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", {
       key: key
     }, value.name);
+  }), apiTrue && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("script", {
+    src: `https://maps.google.com/maps/api/js?key=${apiKey}&libraries=places`
   }));
 }
 

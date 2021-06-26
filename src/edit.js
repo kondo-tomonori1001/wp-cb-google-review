@@ -35,16 +35,18 @@ import axios from "axios";
 
 export default function Edit({ attributes, setAttributes }) {
 	const { apiKey, placeId, res } = attributes;
-	const [apiTrue, setApiTrue] = useState();
+	const [apiTrue, setApiTrue] = useState(false);
+
+	console.log(res === undefined);
 
 const clickEvent = () => {
 	const setApiKey = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=review&key=${apiKey}`
 	console.log(setApiKey);
-	axios.get(setApiKey)
+	axios.get(apiKey)
 		.then((response) => {
-			setApiTrue(true);
 			attributes.res = response.data;
 			console.log(res);
+			setApiTrue(true);
 		})
 		.catch((error) => {
 			setApiTrue(false);
@@ -77,10 +79,11 @@ const clickEvent = () => {
 				{__("Block – hello from the editor!", "block")}
 			</p>
 			{
-				(apiTrue === undefined || apiTrue === true) && res.map((value, key) => {
+				(res !== undefined && apiTrue === true) && res.map((value, key) => {
 					return <p key={key}>{value.name}</p>
 				})
 			}
+			{apiTrue && <script src={`https://maps.google.com/maps/api/js?key=${apiKey}&libraries=places`}></script>}
 		</>
 	);
 }
