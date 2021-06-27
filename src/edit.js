@@ -31,28 +31,46 @@ import "./editor.scss";
  * @return {WPElement} Element to render.
  */
 
-import axios from "axios";
+import $ from "jquery";
 
 export default function Edit({ attributes, setAttributes }) {
-	const { apiKey, placeId, res } = attributes;
+	const blockProps = useBlockProps();
+	const { apiKey, apiStatus, placeId, res } = attributes;
 	const [apiTrue, setApiTrue] = useState(false);
 
-	console.log(res === undefined);
+	console.log(apiKey,res,apiStatus,placeId);
+	const clickEvent = () => {
+		$.getScript(
+			"https://maps.google.com/maps/api/js?key=" + apiKey + "&libraries=places",
+			function () {
+				const service = new google.maps.places.PlacesService(
+					document.createElement("div")
+					);
+					service.getDetails(
+						{
+							placeId: placeId,
+							fields: ["review"],
+						},
+					function (place, status) {
+						console.log(status);
+						if (status === "INVALID_REQUEST"){
+							attributes.apiStatus = "false";
+							attributes.res = '';
+							setApiTrue(false);
 
-const clickEvent = () => {
-	const setApiKey = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=review&key=${apiKey}`
-	console.log(setApiKey);
-	axios.get(apiKey)
-		.then((response) => {
-			attributes.res = response.data;
-			console.log(res);
-			setApiTrue(true);
-		})
-		.catch((error) => {
-			setApiTrue(false);
-			console.log('ERROR!! occurred in Backend.')
-		});
-}
+							console.log('error');
+						}
+						if (status == google.maps.places.PlacesServiceStatus.OK) {
+							console.log(place.reviews);
+							attributes.res = place.reviews;
+							attributes.apiStatus = "true";
+							setApiTrue(true);
+						}
+					}
+				);
+			}
+		);
+	};
 
 	return (
 		<>
@@ -63,27 +81,30 @@ const clickEvent = () => {
 						value={attributes.apiKey}
 						onChange={(value) => setAttributes({ apiKey: value })}
 					/>
-					<p>{apiKey}</p>
 					<TextControl
 						label="ロケーションID"
 						value={attributes.placeId}
 						onChange={(value) => setAttributes({ placeId: value })}
 					/>
-					<p>{placeId}</p>
-					<button onClick={clickEvent}>表示する</button>
-					{apiTrue === false && <p>口コミ情報の取得に失敗しました。正しく情報が入力されているかご確認ください。</p>}
+					<button onClick={clickEvent}>口コミ情報を表示する</button>
+					{apiStatus === "false" && (
+						<p>口コミ情報の取得に失敗しました。正しく情報が入力されているかご確認ください。</p>
+					)}
 				</PanelBody>
 			</InspectorControls>
-
-			<p {...useBlockProps()}>
-				{__("Block – hello from the editor!", "block")}
-			</p>
-			{
-				(res !== undefined && apiTrue === true) && res.map((value, key) => {
-					return <p key={key}>{value.name}</p>
-				})
-			}
-			{apiTrue && <script src={`https://maps.google.com/maps/api/js?key=${apiKey}&libraries=places`}></script>}
+			<div {...blockProps}>
+				<div className="review">
+					{apiStatus === "true" && res !== "" && res.map((value, key) => {
+							return (
+								<div className="review__item" key={`review-${key}`}>
+									<p className="review_rating" data-rating={value.rating}>星の数：{value.rating}</p>
+									<p className="review_text">{value.text}</p>
+								</div>
+							)
+						})
+					}
+				</div>
+			</div>
 		</>
 	);
 }

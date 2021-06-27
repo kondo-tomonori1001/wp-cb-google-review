@@ -16,7 +16,11 @@
 		"apiKey":{
 			"type":"string"
 		},
-		"locationId": {
+		"apiStatus":{
+			"type":"string",
+			"default":"init"
+		},
+		"placeId": {
 			"type": "string"
 		},
 		"res":{

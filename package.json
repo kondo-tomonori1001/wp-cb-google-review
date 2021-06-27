@@ -20,7 +20,8 @@
 		"@wordpress/block-editor": "^6.1.4",
 		"@wordpress/blocks": "^9.1.4",
 		"@wordpress/i18n": "^4.1.1",
-		"axios": "^0.21.1"
+		"axios": "^0.21.1",
+		"jquery": "^3.6.0"
 	},
 	"devDependencies": {
 		"@wordpress/env": "^4.0.5",

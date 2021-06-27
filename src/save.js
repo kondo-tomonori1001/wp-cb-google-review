@@ -23,18 +23,23 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @return {WPElement} Element to render.
  */
 export default function save({ attributes }) {
-	const { apiKey, res } = attributes;
+	const { placeId, res } = attributes;
+
 	return (
-		<>
-			<p { ...useBlockProps.save() }>
-				{ __( 'Block – hello from the saved content!', 'block' ) }
-			</p>
+		<div className="review">
 			{
-				res.map((value, key) => {
-					return <p key={key}>{value.name}</p>
-				})
+				res !== undefined && (res.map((value, key) => {
+					return (
+						<>
+							<div className="review__item">
+								<p className="review_rating" data-rating={value.rating}></p>
+								<p className="review_text" key={key}>{value.text}</p>
+							</div>
+						</>
+					)
+				}))
 			}
-		</>
+		</div>
 	);
 	
 }

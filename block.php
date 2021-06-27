@@ -27,21 +27,39 @@ add_action( 'init', 'create_block_block_block_init' );
 
 // メニュー追加
 function add_menu(){
-  add_menu_page( 'GooglePlacesAPI','GooglePlacesAPI','manage_options','get_api','add_js','dashicons-align-left');
+  add_menu_page( 'GooglePlacesAPI','GooglePlacesAPI','manage_options','get_api','add_page','dashicons-align-left');
 }
-add_action( 'admin_menu', 'add_menu' );
+// add_action( 'admin_menu', 'add_menu' );
 
-function get_api() {
-	$url = "https://jsonplaceholder.typicode.com/posts";
-	$json = file_get_contents($url);
-	// echo $json;
+function add_page(){
+	?>
+	<h2>GooglePlaces口コミ情報出力プラグイン</h2>
+	<label>
+		APIキー
+		<input type="text" value="<?php echo get_option('apiKey'); ?>"">
+	</label>
+	<label>
+		プレイスID
+		<input type="text">
+	</label>
+	<?php
 }
+
+// font-awesome
+function enqueue_scripts(){
+	wp_enqueue_style('fontawesome','https://use.fontawesome.com/releases/v5.2.0/css/all.css');
+	}
+	add_action('wp_enqueue_scripts','enqueue_scripts');
 
 // JSフック
 function add_js(){
 	wp_enqueue_script(
 		'custom.js',
-		plugins_url('/block/custom.js')
+		plugins_url('/block/custom.js'),
+		array(),
+		false,
+		true
 	);
 }
 add_action( 'wp_enqueue_scripts', 'add_js' );
+?>
