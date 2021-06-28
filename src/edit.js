@@ -81,11 +81,14 @@ export default function Edit({ attributes, setAttributes }) {
 						value={attributes.apiKey}
 						onChange={(value) => setAttributes({ apiKey: value })}
 					/>
+					<p>APIキーの取得は<a href="https://developers.google.com/maps?hl=ja">こちら</a></p>
+					<p>※APIキーはHTTPリファラー等で制限を行ってください。詳細は<a href="https://developers.google.com/maps/api-key-best-practices?hl=ja">こちら</a></p>
 					<TextControl
 						label="ロケーションID"
 						value={attributes.placeId}
 						onChange={(value) => setAttributes({ placeId: value })}
 					/>
+					<p>PlacesIDの検索は<a href="https://developers.google.com/maps/documentation/places/web-service/place-id">こちら</a></p>
 					<button onClick={clickEvent}>口コミ情報を表示する</button>
 					{apiStatus === "false" && (
 						<p>口コミ情報の取得に失敗しました。正しく情報が入力されているかご確認ください。</p>

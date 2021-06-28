@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name:       Block
- * Description:       Example block written with ESNext standard and JSX support – build step required.
+ * Plugin Name:       GoogleReview
+ * Description:       Googleマップに表示される口コミ情報を取得するプラグインです。
  * Requires at least: 5.7
  * Requires PHP:      7.0
  * Version:           0.1.0
- * Author:            The WordPress Contributors
+ * Author:            KON
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       block
@@ -49,7 +49,8 @@ function add_page(){
 function enqueue_scripts(){
 	wp_enqueue_style('fontawesome','https://use.fontawesome.com/releases/v5.2.0/css/all.css');
 	}
-	add_action('wp_enqueue_scripts','enqueue_scripts');
+
+add_action('wp_enqueue_scripts','enqueue_scripts');
 
 // JSフック
 function add_js(){

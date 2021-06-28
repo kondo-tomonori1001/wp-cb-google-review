@@ -8,3 +8,24 @@
 .wp-block-create-block-block {
 	
 }
+
+.review{
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+}
+
+.review .review__item{
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.review .review__item + .review__item{
+  border-top: 1px solid #aaa;
+}
+
+.review .review_rating .fas{
+  color:#F6B733;
+}
+.review .review_rating .far{
+  color: #aaa;
+}

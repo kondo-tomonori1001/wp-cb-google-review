@@ -1,10 +1,10 @@
 {
 	"apiVersion": 2,
 	"name": "create-block/block",
-	"title": "Block",
+	"title": "Google口コミ取得プラグイン",
 	"category": "widgets",
-	"icon": "smiley",
-	"description": "Example block written with ESNext standard and JSX support – build step required.",
+	"icon": "admin-post",
+	"description": "GooglePlacesAPIを用いて任意の場所の口コミ情報を取得します。",
 	"supports": {
 		"html": false
 	},
