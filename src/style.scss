@@ -18,11 +18,7 @@
   display: block;
   padding-top: 15px;
   padding-bottom: 15px;
-  text-decoration: none;
   transition: .3s;
-}
-.review .review__item:hover{
-  opacity: 0.7;
 }
 
 
@@ -30,9 +26,35 @@
   border-top: 1px solid #aaa;
 }
 
-.review .review_rating .fas{
+.review .review__user{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-bottom: 15px;
+}
+.review .review__user img{
+  display: block;
+  width: 45px;
+  height: 45px;
+  margin-right: 20px;
+  vertical-align: bottom;
+}
+.review .review__user p{
+  font-weight: bold;
+}
+
+
+.review .review__rating .fas{
   color:#F6B733;
 }
-.review .review_rating .far{
+.review .review__rating .far{
   color: #aaa;
+}
+
+.review .review__text{
+  text-decoration: none;
+  display: block;
+}
+.review .review__text:hover{
+  opacity: 0.7;
 }

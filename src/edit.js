@@ -112,10 +112,14 @@ export default function Edit({ attributes, setAttributes }) {
 				<div className="review">
 					{apiStatus === "true" && res !== "" && res.map((value, key) => {
 							return (
-								<a href={value.reviewUrl} className="review__item" key={`review-${key}`} target="_blank">
+								<div className="review__item" key={`review-${key}`}>
+									<div className="review__user">
+										<img src={value.profile_photo_url}></img>
+										<p>{value.author_name}</p>
+									</div>
 									<p className="review_rating" data-rating={value.rating}>星の数：{value.rating}</p>
-									<p className="review_text">{value.text}</p>
-								</a>
+									<a href={value.reviewUrl}  target="_blank" className="review__text">{value.text}</a>
+								</div>
 							)
 						})
 					}

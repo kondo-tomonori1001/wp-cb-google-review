@@ -1,4 +1,4 @@
-const ratingEl = document.getElementsByClassName('review_rating');
+const ratingEl = document.getElementsByClassName('review__rating');
 
 for(let i = 0; i < ratingEl.length; i ++){
   const rating = ratingEl[i].getAttribute('data-rating');
