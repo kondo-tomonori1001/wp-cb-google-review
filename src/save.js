@@ -31,10 +31,10 @@ export default function save({ attributes }) {
 				res !== undefined && (res.map((value, key) => {
 					return (
 						<>
-							<div className="review__item">
+							<a href={value.reviewUrl} className="review__item" target="_blank">
 								<p className="review_rating" data-rating={value.rating}></p>
 								<p className="review_text" key={key}>{value.text}</p>
-							</div>
+							</a>
 						</>
 					)
 				}))

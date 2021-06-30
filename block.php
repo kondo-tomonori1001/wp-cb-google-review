@@ -56,7 +56,8 @@ add_action('wp_enqueue_scripts','enqueue_scripts');
 function add_js(){
 	wp_enqueue_script(
 		'custom.js',
-		plugins_url('/block/custom.js'),
+		plugins_url('/googlePlacesAPI/custom.js'),
+		// plugins_url('/block/custom.js'),
 		array(),
 		false,
 		true

@@ -61,10 +61,23 @@ export default function Edit({ attributes, setAttributes }) {
 							console.log('error');
 						}
 						if (status == google.maps.places.PlacesServiceStatus.OK) {
+							// 口コミURL
+							for(let i = 0; i < place.reviews.length; i ++){
+								const originUrl = place.reviews[i].author_url;
+								const originUrlArray =originUrl.split('/');
+								originUrlArray.pop();
+								originUrlArray.push('place');
+								originUrlArray.push(placeId);
+								const reviewUrl = originUrlArray.join('/');
+								place.reviews[i].reviewUrl = reviewUrl;
+							}
 							console.log(place.reviews);
+
 							attributes.res = place.reviews;
 							attributes.apiStatus = "true";
 							setApiTrue(true);
+
+							
 						}
 					}
 				);
@@ -99,10 +112,10 @@ export default function Edit({ attributes, setAttributes }) {
 				<div className="review">
 					{apiStatus === "true" && res !== "" && res.map((value, key) => {
 							return (
-								<div className="review__item" key={`review-${key}`}>
+								<a href={value.reviewUrl} className="review__item" key={`review-${key}`} target="_blank">
 									<p className="review_rating" data-rating={value.rating}>星の数：{value.rating}</p>
 									<p className="review_text">{value.text}</p>
-								</div>
+								</a>
 							)
 						})
 					}

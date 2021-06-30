@@ -15,9 +15,16 @@
 }
 
 .review .review__item{
+  display: block;
   padding-top: 15px;
   padding-bottom: 15px;
+  text-decoration: none;
+  transition: .3s;
 }
+.review .review__item:hover{
+  opacity: 0.7;
+}
+
 
 .review .review__item + .review__item{
   border-top: 1px solid #aaa;
