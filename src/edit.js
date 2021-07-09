@@ -114,11 +114,11 @@ export default function Edit({ attributes, setAttributes }) {
 							return (
 								<div className="review__item" key={`review-${key}`}>
 									<div className="review__user">
-										<img src={value.profile_photo_url}></img>
+										<img src={value.profile_photo_url}/>
 										<p>{value.author_name}</p>
 									</div>
 									<p className="review_rating" data-rating={value.rating}>星の数：{value.rating}</p>
-									<a href={value.reviewUrl}  target="_blank" className="review__text">{value.text}</a>
+									<a href={value.reviewUrl} target="_blank" rel="noreferrer noopener" className="review__text">{value.text}</a>
 								</div>
 							)
 						})

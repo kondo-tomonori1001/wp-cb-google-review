@@ -33,11 +33,11 @@ export default function save({ attributes }) {
 						<>
 							<div className="review__item">
 								<div className="review__user">
-									<img src={value.profile_photo_url}></img>
+									<img src={value.profile_photo_url}/>
 									<p>{value.author_name}</p>
 								</div>
 								<p className="review__rating" data-rating={value.rating}></p>
-								<a href={value.reviewUrl} target="_blank" className="review__text" key={key}>{value.text}</a>
+								<a href={value.reviewUrl} target="_blank" rel="noreferrer noopener" className="review__text" key={key}>{value.text}</a>
 							</div>
 						</>
 					)
