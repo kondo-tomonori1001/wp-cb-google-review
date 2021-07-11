@@ -12,7 +12,7 @@ import { __ } from "@wordpress/i18n";
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
 import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
-import { PanelBody, TextControl } from "@wordpress/components";
+import { Button, PanelBody, TextControl, SelectControl } from "@wordpress/components";
 import { useState } from "@wordpress/element";
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -35,7 +35,7 @@ import $ from "jquery";
 
 export default function Edit({ attributes, setAttributes }) {
 	const blockProps = useBlockProps();
-	const { apiKey, apiStatus, placeId, res } = attributes;
+	const { apiKey, apiStatus, placeId, locationData, selectPlaceName, res } = attributes;
 	const [apiTrue, setApiTrue] = useState(false);
 
 	console.log(apiKey,res,apiStatus,placeId);
@@ -85,17 +85,50 @@ export default function Edit({ attributes, setAttributes }) {
 		);
 	};
 
+	const getFromLocation = () => {
+		$.getScript(
+			"https://maps.google.com/maps/api/js?key=" + apiKey + "&libraries=places",
+			function () {
+				const locationDataArray = locationData.split(',');
+				const pos = new google.maps.LatLng(Number(locationDataArray[0]), Number(locationDataArray[1]));
+				const service = new google.maps.places.PlacesService(
+					document.createElement("div")
+					);
+					service.nearbySearch(
+						{
+							location: pos,
+    					radius: '3',
+						},
+					function (place, status) {
+						if (status == google.maps.places.PlacesServiceStatus.OK) {
+							console.log(place);
+							const selectList = [{value: null, label: 'Select an Option', disabled: true}];
+							for(let i = 0; i < place.length; i++){
+								const item = {
+									value:place[i].place_id,
+									label:place[i].name
+								}
+								selectList.push(item);
+							}
+							attributes.selectPlaceName = selectList;
+						}
+					}
+				);
+			}
+		);
+	}
+
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title="API情報入力">
+				<PanelBody title="STEP1:API情報入力" initialOpen={false}>
 					<TextControl
 						label="APIキー"
 						value={attributes.apiKey}
 						onChange={(value) => setAttributes({ apiKey: value })}
 					/>
-					<p>APIキーの取得は<a href="https://developers.google.com/maps?hl=ja">こちら</a></p>
-					<p>※APIキーはHTTPリファラー等で制限を行ってください。詳細は<a href="https://developers.google.com/maps/api-key-best-practices?hl=ja">こちら</a></p>
+				</PanelBody>
+				<PanelBody title="STEP2:ロケーションIDから取得する" initialOpen={false}>
 					<TextControl
 						label="ロケーションID"
 						value={attributes.placeId}
@@ -103,9 +136,19 @@ export default function Edit({ attributes, setAttributes }) {
 					/>
 					<p>PlacesIDの検索は<a href="https://developers.google.com/maps/documentation/places/web-service/place-id">こちら</a></p>
 					<button onClick={clickEvent}>口コミ情報を表示する</button>
-					{apiStatus === "false" && (
-						<p>口コミ情報の取得に失敗しました。正しく情報が入力されているかご確認ください。</p>
-					)}
+				</PanelBody>
+				<PanelBody title="STEP2:緯度・経度情報から取得する" initialOpen={false}>
+					<TextControl
+						label="位置情報"
+						value={attributes.locationData}
+						onChange={(value) => setAttributes({ locationData: value })}
+					/>
+					<button onClick={getFromLocation}>位置情報から周辺を検索</button>
+					<SelectControl
+						label="箇所を選択する"
+						value="default"
+						options = {attributes.selectPlaceName}
+					/>
 				</PanelBody>
 			</InspectorControls>
 			<div {...blockProps}>

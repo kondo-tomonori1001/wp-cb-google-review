@@ -23,6 +23,17 @@
 		"placeId": {
 			"type": "string"
 		},
+		"locationData": {
+			"type": "string"
+		},
+		"selectPlaceName":{
+			"type":"array",
+			"default":[{
+				"value": null,
+				"label": "Select an Option",
+				"disabled": true
+			}]
+		},
 		"res":{
 			"type":"array"
 		}
