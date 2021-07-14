@@ -23,27 +23,27 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @return {WPElement} Element to render.
  */
 export default function save({ attributes }) {
-	const { placeId, res } = attributes;
+  const { placeId, res } = attributes;
 
-	return (
-		<div className="review">
-			{
-				res !== undefined && (res.map((value, key) => {
-					return (
-						<>
-							<div className="review__item">
-								<div className="review__user">
-									<img src={value.profile_photo_url}/>
-									<p>{value.author_name}</p>
-								</div>
-								<p className="review__rating" data-rating={value.rating}></p>
-								<a href={value.reviewUrl} target="_blank" rel="noreferrer noopener" className="review__text" key={key}>{value.text}</a>
-							</div>
-						</>
-					)
-				}))
-			}
-		</div>
-	);
-	
+  return (
+    <div className="review">
+      {
+        res !== undefined && (res.map((value, key) => {
+          return (
+            <>
+              <div className="review__item">
+                <div className="review__user">
+                  <img src={value.profile_photo_url}/>
+                  <p>{value.author_name}</p>
+                </div>
+                <p className="review__rating" data-rating={value.rating}></p>
+                <a href={value.reviewUrl} target="_blank" rel="noreferrer noopener" className="review__text" key={key}>{value.text}</a>
+              </div>
+            </>
+          )
+        }))
+      }
+    </div>
+  );
+  
 }
