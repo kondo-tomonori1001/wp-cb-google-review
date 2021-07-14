@@ -26,14 +26,14 @@ import save from './save';
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 registerBlockType( 'create-block/block', {
-	/**
-	 * @see ./edit.js
-	 */
-	edit: Edit,
+  /**
+   * @see ./edit.js
+   */
+  edit: Edit,
 
-	/**
-	 * @see ./save.js
-	 */
-	save,
+  /**
+   * @see ./save.js
+   */
+  save,
 } );
 

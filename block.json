@@ -1,41 +1,41 @@
 {
-	"apiVersion": 2,
-	"name": "create-block/block",
-	"title": "Google口コミ取得プラグイン",
-	"category": "widgets",
-	"icon": "admin-post",
-	"description": "GooglePlacesAPIを用いて任意の場所の口コミ情報を取得します。",
-	"supports": {
-		"html": false
-	},
-	"textdomain": "block",
-	"editorScript": "file:./build/index.js",
-	"editorStyle": "file:./build/index.css",
-	"style": "file:./build/style-index.css",
-	"attributes":{
-		"apiKey":{
-			"type":"string"
-		},
-		"apiStatus":{
-			"type":"string",
-			"default":"init"
-		},
-		"placeId": {
-			"type": "string"
-		},
-		"locationData": {
-			"type": "string"
-		},
-		"selectPlaceName":{
-			"type":"array",
-			"default":[{
-				"value": null,
-				"label": "Select an Option",
-				"disabled": true
-			}]
-		},
-		"res":{
-			"type":"array"
-		}
-	}
+  "apiVersion": 2,
+  "name": "create-block/block",
+  "title": "Google口コミ取得プラグイン",
+  "category": "widgets",
+  "icon": "admin-post",
+  "description": "GooglePlacesAPIを用いて任意の場所の口コミ情報を取得します。",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "block",
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./build/index.css",
+  "style": "file:./build/style-index.css",
+  "attributes":{
+    "apiKey":{
+      "type":"string"
+    },
+    "apiStatus":{
+      "type":"string",
+      "default":"init"
+    },
+    "placeId": {
+      "type": "string"
+    },
+    "locationData": {
+      "type": "string"
+    },
+    "selectPlaceName":{
+      "type":"array",
+      "default":[{
+        "value": null,
+        "label": "Select an Option",
+        "disabled": true
+      }]
+    },
+    "res":{
+      "type":"array"
+    }
+  }
 }

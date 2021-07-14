@@ -242,8 +242,11 @@ function Edit({
     locationData,
     selectPlaceName,
     res
-  } = attributes;
-  const [apiTrue, setApiTrue] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
+  } = attributes; // APIのajax通信を判定
+
+  const [apiTrue, setApiTrue] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(false); // 箇所候補の更新用
+
+  const [places, setPlaces] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])();
   console.log(apiKey, res, apiStatus, placeId);
 
   const clickEvent = () => {
@@ -309,6 +312,9 @@ function Edit({
           }
 
           attributes.selectPlaceName = selectList;
+          console.log(selectList); // 再度レンダリングさせるためにフックで更新
+
+          setPlaces(selectList);
         }
       });
     });
@@ -324,19 +330,6 @@ function Edit({
       apiKey: value
     })
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
-    title: "STEP2:\u30ED\u30B1\u30FC\u30B7\u30E7\u30F3ID\u304B\u3089\u53D6\u5F97\u3059\u308B",
-    initialOpen: false
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["TextControl"], {
-    label: "\u30ED\u30B1\u30FC\u30B7\u30E7\u30F3ID",
-    value: attributes.placeId,
-    onChange: value => setAttributes({
-      placeId: value
-    })
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "PlacesID\u306E\u691C\u7D22\u306F", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
-    href: "https://developers.google.com/maps/documentation/places/web-service/place-id"
-  }, "\u3053\u3061\u3089")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
-    onClick: clickEvent
-  }, "\u53E3\u30B3\u30DF\u60C5\u5831\u3092\u8868\u793A\u3059\u308B")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
     title: "STEP2:\u7DEF\u5EA6\u30FB\u7D4C\u5EA6\u60C5\u5831\u304B\u3089\u53D6\u5F97\u3059\u308B",
     initialOpen: false
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["TextControl"], {
@@ -349,9 +342,25 @@ function Edit({
     onClick: getFromLocation
   }, "\u4F4D\u7F6E\u60C5\u5831\u304B\u3089\u5468\u8FBA\u3092\u691C\u7D22"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["SelectControl"], {
     label: "\u7B87\u6240\u3092\u9078\u629E\u3059\u308B",
-    value: "default",
-    options: attributes.selectPlaceName
-  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    value: attributes.placeId,
+    options: attributes.selectPlaceName,
+    onChange: value => setAttributes({
+      placeId: value
+    })
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
+    title: "STEP2:\u30ED\u30B1\u30FC\u30B7\u30E7\u30F3ID\u304B\u3089\u53D6\u5F97\u3059\u308B",
+    initialOpen: false
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["TextControl"], {
+    label: "\u30ED\u30B1\u30FC\u30B7\u30E7\u30F3ID",
+    value: attributes.placeId,
+    onChange: value => setAttributes({
+      placeId: value
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "PlacesID\u306E\u691C\u7D22\u306F", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+    href: "https://developers.google.com/maps/documentation/places/web-service/place-id"
+  }, "\u3053\u3061\u3089")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+    onClick: clickEvent
+  }, "\u53E3\u30B3\u30DF\u60C5\u5831\u3092\u8868\u793A\u3059\u308B"))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "review"
   }, apiStatus === "true" && res !== "" && res.map((value, key) => {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
