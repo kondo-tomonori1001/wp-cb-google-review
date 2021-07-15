@@ -244,7 +244,9 @@ function Edit({
     res
   } = attributes; // APIのajax通信を判定
 
-  const [apiTrue, setApiTrue] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(false); // 箇所候補の更新用
+  const [apiTrue, setApiTrue] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(false); // 口コミ更新用フック
+
+  const [reviews, setReviews] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(); // 箇所候補の更新用
 
   const [places, setPlaces] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])();
   console.log(apiKey, res, apiStatus, placeId);
@@ -266,7 +268,18 @@ function Edit({
         }
 
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          // 口コミURL
+          console.log("reviews" in place); // 口コミURL
+
+          if (!("reviews" in place)) {
+            alert('口コミ情報が登録されていません');
+            return;
+          }
+
+          if (place.reviews.length === 0) {
+            alert('口コミ情報が登録されていません');
+            return;
+          }
+
           for (let i = 0; i < place.reviews.length; i++) {
             const originUrl = place.reviews[i].author_url;
             const originUrlArray = originUrl.split('/');
@@ -281,13 +294,14 @@ function Edit({
           attributes.res = place.reviews;
           attributes.apiStatus = "true";
           setApiTrue(true);
+          setReviews(place.reviews);
         }
       });
     });
   };
 
   const getFromLocation = () => {
-    jquery__WEBPACK_IMPORTED_MODULE_5___default.a.getScript("https://maps.google.com/maps/api/js?key=" + apiKey + "&libraries=places", function () {
+    jquery__WEBPACK_IMPORTED_MODULE_5___default.a.getScript("https://maps.google.com/maps/api/js?key=" + apiKey + "&libraries=places").done(function () {
       const locationDataArray = locationData.split(',');
       const pos = new google.maps.LatLng(Number(locationDataArray[0]), Number(locationDataArray[1]));
       const service = new google.maps.places.PlacesService(document.createElement("div"));
@@ -321,7 +335,7 @@ function Edit({
   };
 
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
-    title: "STEP1:API\u60C5\u5831\u5165\u529B",
+    title: "API\u60C5\u5831\u5165\u529B",
     initialOpen: false
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["TextControl"], {
     label: "API\u30AD\u30FC",
@@ -330,35 +344,38 @@ function Edit({
       apiKey: value
     })
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
-    title: "STEP2:\u7DEF\u5EA6\u30FB\u7D4C\u5EA6\u60C5\u5831\u304B\u3089\u53D6\u5F97\u3059\u308B",
+    title: "GoogleMap\u306E\u4F4D\u7F6E\u60C5\u5831\u306E\u5165\u529B",
     initialOpen: false
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["TextControl"], {
-    label: "\u4F4D\u7F6E\u60C5\u5831",
+    label: "\u4F4D\u7F6E\u60C5\u5831\uFF08\u7DEF\u5EA6\u30FB\u7D4C\u5EA6\uFF09\u306E\u5165\u529B",
     value: attributes.locationData,
     onChange: value => setAttributes({
       locationData: value
-    })
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+    }),
+    className: "u-mb10"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+    variant: "primary",
+    className: "is-primary u-mb24",
     onClick: getFromLocation
-  }, "\u4F4D\u7F6E\u60C5\u5831\u304B\u3089\u5468\u8FBA\u3092\u691C\u7D22"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["SelectControl"], {
+  }, "\u4F4D\u7F6E\u60C5\u5831\u3092\u8A2D\u5B9A\u3059\u308B"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["SelectControl"], {
     label: "\u7B87\u6240\u3092\u9078\u629E\u3059\u308B",
     value: attributes.placeId,
     options: attributes.selectPlaceName,
     onChange: value => setAttributes({
       placeId: value
     })
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
-    title: "STEP2:\u30ED\u30B1\u30FC\u30B7\u30E7\u30F3ID\u304B\u3089\u53D6\u5F97\u3059\u308B",
-    initialOpen: false
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["TextControl"], {
-    label: "\u30ED\u30B1\u30FC\u30B7\u30E7\u30F3ID",
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["TextControl"], {
+    label: "\u30ED\u30B1\u30FC\u30B7\u30E7\u30F3ID\uFF08\u76F4\u63A5\u6307\u5B9A\u3082\u53EF\u80FD\u3067\u3059\uFF09",
     value: attributes.placeId,
     onChange: value => setAttributes({
       placeId: value
-    })
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "PlacesID\u306E\u691C\u7D22\u306F", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+    }),
+    className: "u-mb10"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "\u76F4\u63A5\u6307\u5B9A\u3059\u308B\u5834\u5408\u306E\u691C\u7D22\u306F", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
     href: "https://developers.google.com/maps/documentation/places/web-service/place-id"
-  }, "\u3053\u3061\u3089")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+  }, "\u3053\u3061\u3089")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+    variant: "primary",
+    className: "is-primary",
     onClick: clickEvent
   }, "\u53E3\u30B3\u30DF\u60C5\u5831\u3092\u8868\u793A\u3059\u308B"))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "review"
