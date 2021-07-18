@@ -134,10 +134,15 @@ export default function Edit({ attributes, setAttributes }) {
     )
   }
 
+  const settingApiLinkArray = document.getElementById('admin-js').getAttribute('src').split('/');
+  const settingApiLink = settingApiLinkArray.slice(0,settingApiLinkArray.length - 1).join('/');
+  // console.log(settingApiLink);
+
   return (
     <>
       <InspectorControls>
         <PanelBody title="API情報入力" initialOpen={false}>
+          <a href={`${settingApiLink}/setting_api.pdf`} target="_blank" className="setting-link">APIキーの取得方法</a>
           <TextControl
             label="APIキー"
             value={attributes.apiKey}

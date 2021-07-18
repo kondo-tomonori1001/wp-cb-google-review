@@ -334,10 +334,17 @@ function Edit({
     });
   };
 
+  const settingApiLinkArray = document.getElementById('admin-js').getAttribute('src').split('/');
+  const settingApiLink = settingApiLinkArray.slice(0, settingApiLinkArray.length - 1).join('/'); // console.log(settingApiLink);
+
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
     title: "API\u60C5\u5831\u5165\u529B",
     initialOpen: false
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["TextControl"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+    href: `${settingApiLink}/setting_api.pdf`,
+    target: "_blank",
+    className: "setting-link"
+  }, "API\u30AD\u30FC\u306E\u53D6\u5F97\u65B9\u6CD5"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["TextControl"], {
     label: "API\u30AD\u30FC",
     value: attributes.apiKey,
     onChange: value => setAttributes({

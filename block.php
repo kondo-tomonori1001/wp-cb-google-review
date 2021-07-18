@@ -56,12 +56,23 @@ add_action('wp_enqueue_scripts','enqueue_scripts');
 function add_js(){
   wp_enqueue_script(
     'custom.js',
-    plugins_url('/googleReview/custom.js'),
-    // plugins_url('/block/custom.js'),
+    // plugins_url('/googleReview/custom.js'),
+    plugins_url('/block/custom.js'),
     array(),
     false,
     true
   );
 }
 add_action( 'wp_enqueue_scripts', 'add_js' );
+
+function my_admin_footer_script() {
+  wp_enqueue_script( 
+    'admin', 
+    plugins_url('/block/admin.js'),
+    '',
+    false,
+    true
+  );
+}
+add_action('admin_enqueue_scripts', 'my_admin_footer_script');
 ?>
