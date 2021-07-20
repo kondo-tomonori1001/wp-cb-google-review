@@ -150,6 +150,7 @@ export default function Edit({ attributes, setAttributes }) {
           />
         </PanelBody>
         <PanelBody title="GoogleMapの位置情報の入力" initialOpen={false}>
+          <a href={`${settingApiLink}/setting_location.pdf`} target="_blank" className="setting-link">位置情報の取得方法</a>
           <TextControl
             label="位置情報（緯度・経度）の入力"
             value={attributes.locationData}
