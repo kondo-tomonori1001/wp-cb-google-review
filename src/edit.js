@@ -170,7 +170,7 @@ export default function Edit({ attributes, setAttributes }) {
             onChange={(value) => setAttributes({ placeId: value })}
             className="u-mb10"
           />
-          <p>直接指定する場合の検索は<a href="https://developers.google.com/maps/documentation/places/web-service/place-id">こちら</a></p>
+          <p>直接指定する場合の検索は<a href="https://developers.google.com/maps/documentation/places/web-service/place-id" target="_blank">こちら</a></p>
           <Button variant="primary" className="is-primary" onClick={clickEvent}>口コミ情報を表示する</Button>
         </PanelBody>
       </InspectorControls>
