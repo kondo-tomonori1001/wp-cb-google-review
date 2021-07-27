@@ -39,6 +39,14 @@ button.components-button.u-mb24{
   border-top: 1px solid #aaa;
 }
 
+.review .review__link{
+  text-decoration: none;
+  display: block;
+}
+.review .review__link:hover{
+  opacity: 0.7;
+}
+
 .review .review__user{
   display: flex;
   align-items: center;
@@ -64,11 +72,5 @@ button.components-button.u-mb24{
   color: #aaa;
 }
 
-.review .review__text{
-  text-decoration: none;
-  display: block;
-}
-.review .review__text:hover{
-  opacity: 0.7;
-}
+
 
