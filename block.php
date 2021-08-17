@@ -65,6 +65,18 @@ function add_js(){
 }
 add_action( 'wp_enqueue_scripts', 'add_js' );
 
+function my_admin_jquery_script() {
+  wp_enqueue_script( 
+    'axios', 
+    plugins_url('/googleReview/jquery-3.6.0.min.js'),
+    // plugins_url('/block/jquery-3.6.0.min.js'),
+    array(),
+    false,
+    false
+  );
+}
+add_action('wp_enqueue_scripts', 'my_admin_jquery_script');
+
 function my_admin_footer_script() {
   wp_enqueue_script( 
     'admin', 
@@ -76,4 +88,5 @@ function my_admin_footer_script() {
   );
 }
 add_action('admin_enqueue_scripts', 'my_admin_footer_script');
+
 ?>
